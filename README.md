@@ -2,7 +2,7 @@ SwiftCase
 ===
 
 SwiftCase provides Scala like constructor pattern matching DSL.
-This module includes `match` function and SwiftCase.
+This module includes `match` function and SwiftCase which you should inherit in order to match this class.
 
 ## How to use
 
