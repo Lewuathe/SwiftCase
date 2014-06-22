@@ -37,7 +37,7 @@ class OtherUser: SwiftCase {
 }
 
 let user = User(name: "NOBITA", age: 12)
-let ret : AnyObject? = match(user)(arr: [
+let ret : Int? = match(user)(arr: [
     User(name: "TAKESHI", age: 12) ~> 1,
     User(name: "NOBITA", age: 32) ~> 2,
     User(name: "NOBITA", age: 12) ~> 3,
