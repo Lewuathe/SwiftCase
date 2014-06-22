@@ -12,21 +12,21 @@ protocol SwiftCase {
     func unapply() -> Array<NSObject>
 }
 
-class SwiftPair {
+struct SwiftPair<T> {
     let first: SwiftCase
-    let second: AnyObject
-    init(first: SwiftCase, second: AnyObject) {
+    let second: T
+    init(first: SwiftCase, second: T) {
         self.first = first
         self.second = second
     }
 }
 
-@infix func ~> (source: SwiftCase, target: AnyObject)-> SwiftPair {
+@infix func ~> <T>(source: SwiftCase, target: T)-> SwiftPair<T> {
     return SwiftPair(first: source, second: target)
 }
 
-func match(c: SwiftCase)(arr: Array<SwiftPair>)-> AnyObject? {
-    for pair in arr {
+func match<T>(c: SwiftCase)(cases: Array<SwiftPair<T>>)-> T? {
+    for pair in cases {
         let matchArr = (pair.first as SwiftCase).unapply()
         let originArr = c.unapply()
         var isOk = true
@@ -43,5 +43,6 @@ func match(c: SwiftCase)(arr: Array<SwiftPair>)-> AnyObject? {
     }
     return nil
 }
+
 
 

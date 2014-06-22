@@ -47,7 +47,7 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view, typically from a nib.
         let ans = myadd(1, 2)
         let user = User(name: "NOBITA", age: 34)
-        let ret : AnyObject? = match(user)(arr: [
+        let ret : Int? = match(user)(cases: [
             User(name: "TAKESHI", age: 23) ~> 1,
             User(name: "NOBITA", age: 32) ~> 2,
             User(name: "NOBITA", age: 34) ~> 3,
