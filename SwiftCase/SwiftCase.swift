@@ -8,41 +8,46 @@
 
 import Foundation
 
-protocol SwiftCase {
-    func unapply() -> Array<NSObject>
-}
-
-struct SwiftPair<T> {
-    let first: SwiftCase
-    let second: T
-    init(first: SwiftCase, second: T) {
-        self.first = first
-        self.second = second
-    }
-}
-
-@infix func ~> <T>(source: SwiftCase, target: T)-> SwiftPair<T> {
-    return SwiftPair(first: source, second: target)
-}
-
-func match<T>(c: SwiftCase)(cases: Array<SwiftPair<T>>)-> T? {
-    for pair in cases {
-        let matchArr = (pair.first as SwiftCase).unapply()
-        let originArr = c.unapply()
-        var isOk = true
-        if matchArr.count == originArr.count {
-            for var i = 0; i < matchArr.count; ++i {
-                if matchArr[i] != originArr[i] {
-                    isOk = false
-                }
-            }
-            if isOk {
-                return pair.second
-            }
+class SwiftCase: NSObject {
+    var _paramList: Array<NSObject> = Array<NSObject>()
+    init(_ params: NSObject...) {
+        for i in params {
+            _paramList.append(i)
         }
     }
-    return nil
 }
 
+func internalMatching(ic1: SwiftCase, ic2: SwiftCase) -> Bool {
+    var isOk = true
+    let matchArr = ic1._paramList
+    let originArr = ic2._paramList
+    if matchArr.count == originArr.count {
+        for var i = 0; i < matchArr.count; ++i {
+            if let m = matchArr[i] as? SwiftCase {
+                if let o = originArr[i] as? SwiftCase {
+                    println("SwiftCase Matching")
+                    isOk = internalMatching(m, o)
+                    continue
+                }
+            }
+            
+            if matchArr[i] != originArr[i] {
+                isOk = false
+            }
+        }
+        if isOk {
+            return true
+        }
+    }
+    return false
+}
 
+func ~=(c1: SwiftCase, c2: SwiftCase) -> Bool {
+    return internalMatching(c1, c2)
+}
+
+func ~=(pattern: String, value: Int) -> Bool {
+    println("\(pattern) == \(value)")
+    return pattern == "\(value)"
+}
 

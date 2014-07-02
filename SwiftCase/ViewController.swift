@@ -14,11 +14,9 @@ class User: SwiftCase {
     init(name: String, age: Int) {
         self.name = name
         self.age = age
+        super.init(name, age)
     }
-    
-    func unapply() -> Array<NSObject> {
-        return [self.name, self.age]
-    }
+
 }
 
 class OtherUser: SwiftCase {
@@ -29,10 +27,17 @@ class OtherUser: SwiftCase {
         self.name = name
         self.age = age
         self.address = address
+        super.init(name, age, address)
     }
-    
-    func unapply() -> Array<NSObject> {
-        return [self.name, self.age, self.address]
+}
+
+class TwoUsers: SwiftCase {
+    let user1: User
+    let user2: User
+    init(user1: User, user2: User) {
+        self.user1 = user1
+        self.user2 = user2
+        super.init(user1, user2)
     }
 }
 
@@ -46,16 +51,23 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         let ans = myadd(1, 2)
-        let user = User(name: "NOBITA", age: 34)
-        let ret : Int? = match(user)(cases: [
-            User(name: "TAKESHI", age: 23) ~> 1,
-            User(name: "NOBITA", age: 32) ~> 2,
-            User(name: "NOBITA", age: 34) ~> 3,
-            OtherUser(name: "NOBITA", age: 20, address: "TOKYO") ~> 4
-        ])
-        
-        if ret {
-            print(ret)
+        let user1 = User(name: "NOBITA", age: 34)
+        let user2 = User(name: "TAKESHI", age: 14)
+
+        let twoUsers = TwoUsers(user1: user1, user2: user2)
+        switch twoUsers {
+            case User(name: "NOBITA", age: 23):
+            println("This is 3")
+            case User(name: "TAKESHI", age: 32):
+            println("This is 2")
+            case User(name: "NOBITA", age: 34):
+            println("This is 1")
+			case OtherUser(name: "NOBITA", age: 23, address: "TOKYO"):
+			println("This is other user")
+            case TwoUsers(user1: User(name: "NOBITA", age: 34), user2: User(name: "TAKESHI", age: 14)):
+            println("This is two user")
+            default:
+			println("This is default")
         }
     }
 
