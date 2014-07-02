@@ -7,17 +7,13 @@ This module includes `match` function and SwiftCase which you should inherit in 
 ## How to use
 
 ```swift
-
 class User: SwiftCase {
     let name: String
     let age: Int
     init(name: String, age: Int) {
         self.name = name
         self.age = age
-    }
-
-    func unapply() -> Array<NSObject> {
-        return [self.name, self.age]
+        super.init(name, age)
     }
 }
 
@@ -29,22 +25,40 @@ class OtherUser: SwiftCase {
         self.name = name
         self.age = age
         self.address = address
-    }
-
-    func unapply() -> Array<NSObject> {
-	        return [self.name, self.age, self.address]
+        super.init(name, age, address)
     }
 }
 
-let user = User(name: "NOBITA", age: 12)
-let ret : Int? = match(user)(arr: [
-    User(name: "TAKESHI", age: 12) ~> 1,
-    User(name: "NOBITA", age: 32) ~> 2,
-    User(name: "NOBITA", age: 12) ~> 3,
-    OtherUser(name: "NOBITA", age: 20, address: "TOKYO") ~> 4
-])
+class TwoUsers: SwiftCase {
+    let user1: User
+    let user2: User
+    init(user1: User, user2: User) {
+        self.user1 = user1
+        self.user2 = user2
+        super.init(user1, user2)
+    }
+}
 
-// ret is 3
+let user1 = User(name: "NOBITA", age: 34)
+let user2 = User(name: "TAKESHI", age: 14)
+
+let twoUsers = TwoUsers(user1: user1, user2: user2)
+switch twoUsers {
+    case User(name: "NOBITA", age: 23):
+             println("This is 3")
+    case User(name: "TAKESHI", age: 32):
+             println("This is 2")
+    case User(name: "NOBITA", age: 34):
+             println("This is 1")
+    case OtherUser(name: "NOBITA", age: 23, address: "TOKYO"):
+             println("This is other user")
+    case TwoUsers(user1: User(name: "NOBITA", age: 34), user2: User(name: "TAKESHI", age: 14)):
+             println("This is two user")
+    default:
+             println("This is default")
+}
+
+// -> "This is two user"
 ```
 
 

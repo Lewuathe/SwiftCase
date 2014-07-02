@@ -25,7 +25,6 @@ func internalMatching(ic1: SwiftCase, ic2: SwiftCase) -> Bool {
         for var i = 0; i < matchArr.count; ++i {
             if let m = matchArr[i] as? SwiftCase {
                 if let o = originArr[i] as? SwiftCase {
-                    println("SwiftCase Matching")
                     isOk = internalMatching(m, o)
                     continue
                 }
