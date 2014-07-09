@@ -9,7 +9,7 @@
 import Foundation
 
 class SwiftCase: NSObject {
-    var _paramList: Array<NSObject> = Array<NSObject>()
+    var _paramList: [NSObject] = [NSObject]()
     init(_ params: NSObject...) {
         for i in params {
             _paramList.append(i)
@@ -43,10 +43,5 @@ func internalMatching(ic1: SwiftCase, ic2: SwiftCase) -> Bool {
 
 func ~=(c1: SwiftCase, c2: SwiftCase) -> Bool {
     return internalMatching(c1, c2)
-}
-
-func ~=(pattern: String, value: Int) -> Bool {
-    println("\(pattern) == \(value)")
-    return pattern == "\(value)"
 }
 

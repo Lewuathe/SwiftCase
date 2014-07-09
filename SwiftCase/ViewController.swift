@@ -41,8 +41,13 @@ class TwoUsers: SwiftCase {
     }
 }
 
-func myadd(v1: Int, v2: Int)-> Int {
-    return v1 + v2
+class Test1 {
+    let name: String
+    let age: Int
+    init(name: String, age: Int) {
+        self.name = name
+        self.age = age
+    }
 }
 
 class ViewController: UIViewController {
@@ -50,7 +55,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        let ans = myadd(1, 2)
+
         let user1 = User(name: "NOBITA", age: 34)
         let user2 = User(name: "TAKESHI", age: 14)
 
