@@ -1,10 +1,9 @@
 SwiftCase
 ===
 
-SwiftCase provides Scala like constructor pattern matching DSL.
-This module includes `match` function and SwiftCase which you should inherit in order to match this class.
+SwiftCase provides Scala like constructor pattern matching DSL. With this class, you can run matching logic with constructor pattern recursively. This module includes `SwiftCase` class which you should inherit in order to match this class.
 
-## How to use
+## Class implementation
 
 ```swift
 class User: SwiftCase {
@@ -15,6 +14,7 @@ class User: SwiftCase {
         self.age = age
         super.init(name, age)
     }
+
 }
 
 class OtherUser: SwiftCase {
@@ -38,27 +38,31 @@ class TwoUsers: SwiftCase {
         super.init(user1, user2)
     }
 }
+```
 
-let user1 = User(name: "NOBITA", age: 34)
-let user2 = User(name: "TAKESHI", age: 14)
+## How to matching
 
+```swift
+let user1 = User(name: "NOBITA", age: 12)
+let user2 = User(name: "TAKESHI", age: 13)
 let twoUsers = TwoUsers(user1: user1, user2: user2)
+        
 switch twoUsers {
-    case User(name: "NOBITA", age: 23):
-             println("This is 3")
-    case User(name: "TAKESHI", age: 32):
-             println("This is 2")
-    case User(name: "NOBITA", age: 34):
-             println("This is 1")
-    case OtherUser(name: "NOBITA", age: 23, address: "TOKYO"):
-             println("This is other user")
-    case TwoUsers(user1: User(name: "NOBITA", age: 34), user2: User(name: "TAKESHI", age: 14)):
-             println("This is two user")
+    case User(name: "NOBITA", age: 12):
+    println("He is NOBITA")
+    case User(name: "TAKESHI", age: 13):
+    println("He is TAKESHI")
+    case User(name: "NOBITANIAN", age: 14):
+    println("He is old NOBITA ")
+	case OtherUser(name: "NOBITA", age: 12, address: "TOKYO"):
+    println("He is other man")
+    case TwoUsers(user1: User(name: "NOBITA", age: 12), user2: User(name: "TAKESHI", age: 13)):
+    println("They are NOBITA and TAKESHI")
     default:
-             println("This is default")
+	println("Who is he?")
 }
 
-// -> "This is two user"
+// -> They are NOBITA and TAKESHI
 ```
 
 
