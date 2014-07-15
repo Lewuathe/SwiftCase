@@ -12,6 +12,7 @@ class User: SwiftCase {
     init(name: String, age: Int) {
         self.name = name
         self.age = age
+        // Call SwiftCase initializer
         super.init(name, age)
     }
 
@@ -25,6 +26,7 @@ class OtherUser: SwiftCase {
         self.name = name
         self.age = age
         self.address = address
+         // Call SwiftCase initializer
         super.init(name, age, address)
     }
 }
@@ -35,6 +37,7 @@ class TwoUsers: SwiftCase {
     init(user1: User, user2: User) {
         self.user1 = user1
         self.user2 = user2
+         // Call SwiftCase initializer
         super.init(user1, user2)
     }
 }
