@@ -41,39 +41,32 @@ class TwoUsers: SwiftCase {
     }
 }
 
-class Test1 {
-    let name: String
-    let age: Int
-    init(name: String, age: Int) {
-        self.name = name
-        self.age = age
-    }
-}
-
 class ViewController: UIViewController {
                             
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
 
-        let user1 = User(name: "NOBITA", age: 34)
-        let user2 = User(name: "TAKESHI", age: 14)
+        let user1 = User(name: "NOBITA", age: 12)
+        let user2 = User(name: "TAKESHI", age: 13)
 
         let twoUsers = TwoUsers(user1: user1, user2: user2)
+        
         switch twoUsers {
-            case User(name: "NOBITA", age: 23):
-            println("This is 3")
-            case User(name: "TAKESHI", age: 32):
-            println("This is 2")
-            case User(name: "NOBITA", age: 34):
-            println("This is 1")
-			case OtherUser(name: "NOBITA", age: 23, address: "TOKYO"):
-			println("This is other user")
-            case TwoUsers(user1: User(name: "NOBITA", age: 34), user2: User(name: "TAKESHI", age: 14)):
-            println("This is two user")
+            case User(name: "NOBITA", age: 12):
+            println("He is NOBITA")
+            case User(name: "TAKESHI", age: 13):
+            println("He is TAKESHI")
+            case User(name: "NOBITANIAN", age: 14):
+            println("He is old NOBITA ")
+			case OtherUser(name: "NOBITA", age: 12, address: "TOKYO"):
+			println("He is other man")
+            case TwoUsers(user1: User(name: "NOBITA", age: 12), user2: User(name: "TAKESHI", age: 13)):
+            println("They are NOBITA and TAKESHI")
             default:
-			println("This is default")
+			println("Who is he?")
         }
+        
     }
 
     override func didReceiveMemoryWarning() {
